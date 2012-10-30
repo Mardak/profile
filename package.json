@@ -1,16 +1,9 @@
 {
   "author": "Mozilla",
-  "description": "Analyze your local browser data and summarize it into a visual profile.",
-  "fullName": "about:profile",
+  "description": "dumps dempgraphics analitics.",
+  "fullName": "demogdump",
   "id": "jid1-ISK94hGUF3FsrA",
-  "name": "about-profile",
+  "name": "demogdump",
   "license": "MPL 2.0",
-  "preferences": [{
-    "description": "Comma separated list of domains",
-    "name": "allowedAPIDomains",
-    "title": "Grant these domains profile API access",
-    "type": "string",
-    "value": ""
-  }],
   "version": "1"
 }
