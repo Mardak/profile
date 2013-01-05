@@ -1,0 +1,23 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+const NEG_COLOR = "#c99";
+const POS_COLOR = "#9c9";
+
+$(document).ready(function() {
+  console.log("READY");
+
+  self.port.emit("donedoc");
+});
+
+self.port.on("show_demog", function(demog) {
+  console.log("GOT DEMOG ");
+
+  let pre = $("#dump");
+  demog.forEach( function(line) {
+    //console.log( line );
+    pre.append(line);
+    pre.append("<br/>");
+   });
+});
