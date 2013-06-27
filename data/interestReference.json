@@ -1,5 +1,41 @@
 {
-  "Cars": [
+  "Android": [
+    "androidandme.com",
+    "androidauthority.com",
+    "androidcentral.com",
+    "androidcommunity.com",
+    "androidguys.com",
+    "androidpolice.com",
+    "androinica.com",
+    "droid-life.com",
+    "phandroid.com",
+    "talkandroid.com"
+  ],
+  "Apple": [
+    "allthingsapple.me",
+    "appcraver.com",
+    "appleinsider.com",
+    "cultofmac.com",
+    "ilounge.com",
+    "iphonelife.com",
+    "macnn.com",
+    "macrumors.com",
+    "macworld.com",
+    "tuaw.com"
+  ],
+  "Arts": [
+    "absolutearts.com",
+    "aldaily.com",
+    "artcyclopedia.com",
+    "artdaily.com",
+    "artnews.com",
+    "artnewsblog.com",
+    "artsjournal.com",
+    "blogs.artinfo.com",
+    "blouinartinfo.com",
+    "theartnewspaper.com"
+  ],
+  "Autos": [
     "autoblog.com",
     "automobilemag.com",
     "autonews.com",
@@ -11,7 +47,115 @@
     "roadandtrack.com",
     "topgear.com"
   ],
-  "Fashion": [
+  "Baseball": [
+    "baseballamerica.com",
+    "baseballanalysts.com",
+    "baseballprospectus.com",
+    "fangraphs.com",
+    "hardballtimes.com",
+    "mlb.com",
+    "mlbdailydish.com",
+    "mlbtraderumors.com",
+    "perfectgame.org",
+    "projectprospect.com"
+  ],
+  "Basketball": [
+    "dimemag.com",
+    "draftexpress.com",
+    "hoopshype.com",
+    "hoopsvibe.com",
+    "hoopsworld.com",
+    "insidehoops.com",
+    "nba.com",
+    "nbadraft.net",
+    "realgm.com",
+    "slamonline.com"
+  ],
+  "Boxing": [
+    "15rounds.com",
+    "boxinginsider.com",
+    "boxingnews24.com",
+    "boxingscene.com",
+    "boxingtalk.com",
+    "doghouseboxing.com",
+    "eastsideboxing.com",
+    "fightnews.com",
+    "maxboxing.com",
+    "secondsout.com"
+  ],
+  "Business": [
+    "bloomberg.com",
+    "businessweek.com",
+    "cnbc.com",
+    "economist.com",
+    "fool.com",
+    "forbes.com",
+    "marketwatch.com",
+    "reuters.com",
+    "seekingalpha.com",
+    "thestreet.com"
+  ],
+  "Cooking": [
+    "101cookbooks.com",
+    "bonappetit.com",
+    "chocolateandzucchini.com",
+    "epicurious.com",
+    "foodandwine.com",
+    "gourmet.com",
+    "saveur.com",
+    "seriouseats.com",
+    "simplyrecipes.com",
+    "smittenkitchen.com"
+  ],
+  "Design": [
+    "betterlivingthroughdesign.com",
+    "contemporist.com",
+    "core77.com",
+    "design-milk.com",
+    "idsa.org",
+    "mymodernmet.com",
+    "smashingmagazine.com",
+    "uxmag.com",
+    "uxmatters.com",
+    "yankodesign.com"
+  ],
+  "Do-It-Yourself": [
+    "blog.makezine.com",
+    "diy.about.com",
+    "ehow.com",
+    "hackaday.com",
+    "hackedgadgets.com",
+    "howstuffworks.com",
+    "instructables.com",
+    "makerfaire.com",
+    "makershed.com",
+    "wikihow.com"
+  ],
+  "Entrepreneur": [
+    "entrepreneur.com",
+    "entrepreneurs.about.com",
+    "inc.com",
+    "myownbusiness.org",
+    "onstartups.com",
+    "pandodaily.com",
+    "siliconvalleywatcher.com",
+    "startupnation.com",
+    "valleywag.com",
+    "venturebeat.com"
+  ],
+  "Fashion-Men": [
+    "acontinuouslean.com",
+    "details.com",
+    "esquire.com",
+    "getkempt.com",
+    "gq.com",
+    "mensfashion.about.com",
+    "mensflair.com",
+    "selectism.com",
+    "stylesalvage.blogspot.com",
+    "valetmag.com"
+  ],
+  "Fashion-Women": [
     "cosmopolitan.com",
     "elle.com",
     "glamour.com",
@@ -23,17 +167,41 @@
     "thefashionspot.com",
     "vogue.com"
   ],
-  "Financial": [
-    "bloomberg.com",
-    "businessweek.com",
-    "cnbc.com",
-    "economist.com",
-    "fool.com",
-    "forbes.com",
-    "marketwatch.com",
-    "reuters.com",
-    "seekingalpha.com",
-    "thestreet.com"
+  "Football": [
+    "coldhardfootballfacts.com",
+    "footballguys.com",
+    "footballoutsiders.com",
+    "ftoday.com",
+    "nationalfootballpost.com",
+    "nfl.com",
+    "nfltraderumors.co",
+    "profootballtalk.nbcsports.com",
+    "profootballweekly.com",
+    "theredzone.org"
+  ],
+  "Gardening": [
+    "finegardening.com",
+    "gardendesign.com",
+    "gardendesigner.com",
+    "gardengatemagazine.com",
+    "gardening.about.com",
+    "gardenista.com",
+    "hortmag.com",
+    "organicgardening.com",
+    "the-landscape-design-site.com",
+    "vegetablegardener.com"
+  ],
+  "Golf": [
+    "golf.com",
+    "golfchannel.com",
+    "golfdigest.com",
+    "golfillustrated.com",
+    "golfreview.com",
+    "golftipsmag.com",
+    "pga.com",
+    "pgatour.com",
+    "usga.org",
+    "usopen.com"
   ],
   "Gossip": [
     "celebuzz.com",
@@ -47,6 +215,54 @@
     "tmz.com",
     "usmagazine.com"
   ],
+  "Health-Men": [
+    "flexonline.com",
+    "ironmagazine.com",
+    "ironmanmagazine.com",
+    "men.webmd.com",
+    "mensfitness.com",
+    "menshealth.about.com",
+    "menshealth.com",
+    "menshealthnetwork.org",
+    "muscleandfitness.com",
+    "naturalmuscle.net"
+  ],
+  "Health-Women": [
+    "fitnessmagazine.com",
+    "healthywomen.org",
+    "muscleandfitnesshers.com",
+    "prevention.com",
+    "self.com",
+    "shape.com",
+    "womenfitness.net",
+    "womens-health.com",
+    "womenshealth.about.com",
+    "womenshealthmag.com"
+  ],
+  "Hockey": [
+    "hockeybuzz.com",
+    "hockeydb.com",
+    "hockeysfuture.com",
+    "mckeenshockey.rivals.com",
+    "mynhldraft.com",
+    "nhl.com",
+    "pectorshockey.net",
+    "spectorshockey.net",
+    "thefourthperiod.com",
+    "thehockeynews.com"
+  ],
+  "Home-Design": [
+    "architectmagazine.com",
+    "architecture.about.com",
+    "bhg.com",
+    "dezeen.com",
+    "dwell.com",
+    "freshome.com",
+    "home-designing.com",
+    "interiordesign.net",
+    "metropolismag.com",
+    "mocoloco.com"
+  ],
   "Humor": [
     "break.com",
     "collegehumor.com",
@@ -58,6 +274,30 @@
     "somethingawful.com",
     "thechive.com",
     "theonion.com"
+  ],
+  "Ideas": [
+    "99u.com",
+    "brainpickings.org",
+    "coolhunting.com",
+    "creativebloq.com",
+    "fastcoexist.com",
+    "gapminder.org",
+    "good.is",
+    "mentalfloss.com",
+    "ted.com",
+    "thoughtcatalog.com"
+  ],
+  "Mixed-Martial-Arts": [
+    "cagepotato.com",
+    "fightline.com",
+    "mixedmartialarts.com",
+    "mmafighting.com",
+    "mmafrenzy.com",
+    "mmanews.com",
+    "mmaweekly.com",
+    "sherdog.com",
+    "strikeforce.com",
+    "ufc.com"
   ],
   "Movies": [
     "allmovie.com",
@@ -143,6 +383,18 @@
     "sciencenews.org",
     "scientificamerican.com"
   ],
+  "Soccer": [
+    "caughtoffside.com",
+    "espnfc.com",
+    "fifa.com",
+    "football365.com",
+    "goal.com",
+    "livescore.com",
+    "soccernews.com",
+    "teamtalk.com",
+    "tribalfootball.com",
+    "worldsoccer.com"
+  ],
   "Sports": [
     "bleacherreport.com",
     "cbssports.com",
@@ -154,18 +406,6 @@
     "scout.com",
     "sportingnews.com",
     "yardbarker.com"
-  ],
-  "TV": [
-    "hulu.com",
-    "sidereel.com",
-    "televisionwithoutpity.com",
-    "thefutoncritic.com",
-    "tv.com",
-    "tvduck.com",
-    "tvgasm.com",
-    "tvguide.com",
-    "tvweek.com",
-    "zap2it.com"
   ],
   "Technology": [
     "allthingsd.com",
@@ -179,7 +419,43 @@
     "techcrunch.com",
     "wired.com"
   ],
-  "Video-games": [
+  "Tennis": [
+    "atpworldtour.com",
+    "dailytennis.com",
+    "onthebaseline.com",
+    "tennis-x.com",
+    "tennis.com",
+    "tennisexpress.com",
+    "tennisnews.com",
+    "tennisserver.com",
+    "tennistalk.com",
+    "usopen.org"
+  ],
+  "Travel": [
+    "budgettravel.com",
+    "cntraveler.com",
+    "fodors.com",
+    "frommers.com",
+    "landlopers.com",
+    "legalnomads.com",
+    "letsgo.com",
+    "lonelyplanet.com",
+    "roughguides.com",
+    "travelandleisure.com"
+  ],
+  "Television": [
+    "hulu.com",
+    "sidereel.com",
+    "televisionwithoutpity.com",
+    "thefutoncritic.com",
+    "tv.com",
+    "tvduck.com",
+    "tvgasm.com",
+    "tvguide.com",
+    "tvweek.com",
+    "zap2it.com"
+  ],
+  "Video-Games": [
     "1up.com",
     "computerandvideogames.com",
     "destructoid.com",
@@ -190,5 +466,17 @@
     "ign.com",
     "joystiq.com",
     "kotaku.com"
+  ],
+  "Weddings": [
+    "brides.com",
+    "lover.ly",
+    "mywedding.com",
+    "oncewed.com",
+    "ruffledblog.com",
+    "stylemepretty.com",
+    "theknot.com",
+    "weddingbee.com",
+    "weddingchannel.com",
+    "weddingchicks.com"
   ]
 }
