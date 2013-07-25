@@ -1,0 +1,31 @@
+###########
+genDFR.pl generated DFR output from reference data (for example interestReference.json)
+
+### to run 
+>> ./genDFR.pl ../data/interestReference.json  > dfr.out
+>> cat dfr.out 
+var interestsData = {
+   "allhiphop.com" : {
+      "__ANY" : [
+         "Music"
+      ]
+   },
+   "salon.com" : {
+      "__ANY" : [
+         "Politics"
+      ]
+.....
+
+
+#### reference data format 
+{
+ "CATEGORY" : [
+    "foo.com",       // support for domains
+    "foo.bar.com",   // support for sub domains
+    "bar.com:/foo",  // support for paths
+ ],
+....
+
+
+#### testing
+./test.sh

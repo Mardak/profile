@@ -1,0 +1,34 @@
+var interestsData = {
+   "baz.com" : {
+      "__ANY" : [
+         "CAT2"
+      ],
+      "path one two" : [
+         "CAT1"
+      ]
+   },
+   "foo.bar.com" : {
+      "x y z" : [
+         "CAT2"
+      ],
+      "__ANY" : [
+         "CAT3"
+      ]
+   },
+   "bar.com" : {
+      "__ANY" : [
+         "CAT1",
+         "CAT2"
+      ]
+   },
+   "foo.com" : {
+      "__ANY" : [
+         "CAT1"
+      ],
+      "abra cadabra" : [
+         "CAT3",
+         "CAT2"
+      ]
+   }
+}
+;

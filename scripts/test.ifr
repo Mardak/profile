@@ -1,0 +1,18 @@
+{
+  "CAT1": [
+    "www.foo.com",
+    "foo.com",
+    "bar.com:/",
+    "baz.com:/path+one/two"
+  ],
+  "CAT2": [
+    "foo.com:/abra-cadabra",
+    "www.baz.com",
+    "bar.com:",
+    "foo.bar.com:/x y z"
+  ],
+  "CAT3": [
+    "foo.com:/abra-cadabra",
+    "foo.bar.com"
+  ]
+}
