@@ -33,14 +33,10 @@ function onresubmitRecentHistoryVisits(args, result) {
 // Update the table with top interests
 function ongetInterestsByNamespace(args, result) {
   let table = document.getElementById("interestTable");
-  result.forEach(({diversity, meta, name, recency, score}) => {
-    let {duration, sharable, threshold} = meta;
-    let {immediate, recent, past} = recency;
+  result.forEach(({diversity, meta, name, score}) => {
+    let {sharable} = meta;
     let tr = document.createElement("tr");
     tr.innerHTML = "<td>" + name + "</td>" +
-      "<td>" + immediate + "</td>" +
-      "<td>" + recent + "</td>" +
-      "<td>" + past + "</td>" +
       "<td>" + score + "</td>" +
       "<td>" + diversity + "</td>" +
       "<td><input type=\"checkbox\"/></td>";
