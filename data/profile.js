@@ -46,8 +46,8 @@ function ongetInterestsByNamespace(args, result) {
     let checkbox = tr.lastChild.firstChild;
     checkbox.checked = sharable;
     checkbox.addEventListener("click", event => {
-      let action = checkbox.checked ? "_unsetIgnoredForInterest" : "_setIgnoredForInterest";
-      self.port.emit("call_service", action, [name]);
+      let value = checkbox.checked ? true : false;
+      self.port.emit("call_service", "setInterestSharable", [name, value]);
     });
   });
 }
