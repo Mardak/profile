@@ -1,6 +1,5 @@
 var interestsData = {
    "Do-It-Yourself" : [
-      "blog.makezine.com",
       "diy.about.com",
       "ehow.com",
       "hackaday.com",
