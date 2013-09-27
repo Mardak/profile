@@ -403,8 +403,8 @@
     "foxsports.com",
     "scout.com",
     "sportingnews.com",
-    "sportsillustrated.cnn.com",
     "sports.yahoo.com",
+    "sportsillustrated.cnn.com",
     "yardbarker.com"
   ],
   "Technology": [
@@ -418,6 +418,18 @@
     "slashdot.org",
     "techcrunch.com",
     "wired.com"
+  ],
+  "Television": [
+    "hulu.com",
+    "sidereel.com",
+    "televisionwithoutpity.com",
+    "thefutoncritic.com",
+    "tv.com",
+    "tvduck.com",
+    "tvgasm.com",
+    "tvguide.com",
+    "tvweek.com",
+    "zap2it.com"
   ],
   "Tennis": [
     "atpworldtour.com",
@@ -442,18 +454,6 @@
     "lonelyplanet.com",
     "roughguides.com",
     "travelandleisure.com"
-  ],
-  "Television": [
-    "hulu.com",
-    "sidereel.com",
-    "televisionwithoutpity.com",
-    "thefutoncritic.com",
-    "tv.com",
-    "tvduck.com",
-    "tvgasm.com",
-    "tvguide.com",
-    "tvweek.com",
-    "zap2it.com"
   ],
   "Video-Games": [
     "1up.com",
