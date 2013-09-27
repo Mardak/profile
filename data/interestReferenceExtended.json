@@ -1,5 +1,6 @@
-var interestsData = {
+{
    "Do-It-Yourself" : [
+      "blog.makezine.com",
       "diy.about.com",
       "ehow.com",
       "hackaday.com",
@@ -13,7 +14,7 @@ var interestsData = {
       "essortment.com",
       "lovetoknow.com",
       "howtodothings.com",
-      "howcast.com",
+      "howcast.com"
    ],
    "Mixed-Martial-Arts" : [
       "cagepotato.com",
@@ -623,7 +624,7 @@ var interestsData = {
       "theinsider.com",
       "cocoperez.com",
       "idontlikeyouinthatway.com",
-      "ok-magazine.com",
+      "ok-magazine.com"
    ],
    "Science" : [
       "discovery.com",
@@ -788,4 +789,3 @@ var interestsData = {
       "thesandtrap.com"
    ]
 }
-;
