@@ -10,14 +10,18 @@ const kNotWordPattern = /[^a-z0-9 ]+/g;
 const kMinimumMatchTokens = 3;
 const kSimilarityCutOff = Math.log(0.95);
 
-function PlaceTokenizer(aUrlStopwordSet) {
-  this._urlStopwordSet = aUrlStopwordSet;
+function PlaceTokenizer({urlStopwordSet, model, rules, regionCode}) {
+  this._urlStopwordSet = urlStopwordSet;
+  this._regionCode = regionCode;
+
+  if (regionCode == 'zh-CN') {
+    this._cnTokenizer = new ChineseTokenizer(model, rules);
+  }
 }
 
 PlaceTokenizer.prototype = {
-  tokenize: function(aUrl, aTitle) {
+  tokenize: function(aUrl, aTitle, aKeywords) {
     aUrl = aUrl.toLowerCase().replace(kNotWordPattern, " ");
-    aTitle = (aTitle) ? aTitle.toLowerCase().replace(kNotWordPattern, " ") : "";
 
     let tokens = [];
 
@@ -28,11 +32,87 @@ PlaceTokenizer.prototype = {
       }
     }, this);
 
-    tokens = tokens.concat(aTitle.split(/\s+/));
+    aKeywords = aKeywords || '';
+
+    if (this._regionCode == 'zh-CN') {
+      tokens = tokens.concat(this._cnTokenizer.tokenize(aTitle + ' ' + aKeywords));
+    } else {
+      aTitle = (aTitle) ? aTitle.toLowerCase().replace(kNotWordPattern, " ") : "";
+      tokens = tokens.concat(aTitle.split(/\s+/));
+      tokens = tokens.concat(aKeywords.split(/\s+/));
+    }
 
     return tokens;
   }
+};
+
+/**
+ * A very simple Reverse Maximum Match tokenizer, the dictionary is
+ * generated from the text classifier model and rule keywords.
+ */
+function ChineseTokenizer(aModel, aRules) {
+  this._hash = [];
+  this.initialize(aModel, aRules);
 }
+
+ChineseTokenizer.prototype = {
+  initialize: function(aModel, aRules) {
+    if (aModel) {
+      Object.keys(aModel.logLikelihoods).forEach(key => {
+        this._addDict(key);
+      });
+    }
+
+    if (aRules) {
+      this._addRuleKeywords(aRules);
+    }
+  },
+
+  _addRuleKeywords: function(rules) {
+    let self = this;
+    Object.keys(rules).forEach(domain => {
+      let domainRules = rules[domain];
+
+      Object.keys(domainRules).forEach(key => {
+        if (key.indexOf("__") < 0) {
+          key.split(/[\s-]+/).forEach(this._addDict.bind(this));
+        } else if (key == "__PATH") {
+          this._addRuleKeywords(domainRules["__PATH"]);
+        }
+      });
+    });
+  },
+
+  _addDict: function(s) {
+    let n = s.length;
+
+    if (!this._hash[n]) {
+      this._hash[n] = {};
+    }
+
+    this._hash[n][s] = true;
+  },
+
+  tokenize: function(sen) {
+    let max = Math.min(sen.length, this._hash.length - 1);
+    for (let n = max; n > 0; n--) {
+      if (!this._hash[n]) {
+        continue;
+      }
+
+      let section = sen.slice(sen.length - n);
+      if (this._hash[n][section]) {
+        return sen.length >= n
+          ? this.tokenize(sen.slice(0, sen.length - n)).concat([section])
+          : [];
+      }
+    }
+
+    return sen.length >= 1
+      ? this.tokenize(sen.slice(0, sen.length - 1))
+      : [];
+  }
+};
 
 function NaiveBayesClassifier(aModel) {
   this._classes = aModel.classes;
