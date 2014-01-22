@@ -19,14 +19,14 @@ let testDomainRules = {
       "computers"
     ]
   },
-  "nws.noaa.gov" : {
-    "__ANY" : [
+  "noaa.gov" : {
+    "nws." : [
       "government",
       "weather",
       "science",
     ]
   },
-  "www.news.com" : {
+  "news.com" : {
     "__HOME" : [
       "news_home"
     ],
@@ -34,6 +34,15 @@ let testDomainRules = {
       "news"
     ]
   },
+  "testpathdomain.com" : {
+    "/code": [
+      "programming"
+    ],
+
+    "/code cplusplus": [
+      "oop"
+    ],
+  }
 }
 
 // the test array 
@@ -74,7 +83,12 @@ let matchTests = [
   title: "",
   expectedInterests: [{"type":"rules","interests":["news","news_home"]},{"type":"combined","interests":["news","news_home"]},{"type":"keywords","interests":[]}],
 },
-];
+{
+  info: "Match Test 7 (Rules): www.testpathdomain.com query url",
+  url:  "https://www.testpathdomain.com/code?qw=aa",
+  title: "CPlusPlus programming",
+  expectedInterests: [{"type":"rules","interests":["programming","oop"]},{"type":"combined","interests":["programming","oop"]},{"type":"keywords","interests":[]}],
+}];
 
 exports["test default matcher"] = function test_default_matcher(assert, done) {
   let deferred;
@@ -106,7 +120,7 @@ exports["test default matcher"] = function test_default_matcher(assert, done) {
       listener: workerTester,
       domainRules: testDomainRules,
       textModel: null,
-      urlStopWords: null
+      urlStopWords: ['php', 'html']
   });
 
   Task.spawn(function() {
