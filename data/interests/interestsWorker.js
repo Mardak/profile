@@ -4,34 +4,51 @@
 
 "use strict";
 
-importScripts("interestsTextClassifier.js");
+importScripts("tokenizerFactory.js");
+importScripts("naiveBayesClassifier.js");
 
 function InterestsWorkerError(message) {
     this.name = "InterestsWorkerError";
     this.message = message || "InterestsWorker has errored";
 }
+
+function log(msg) {
+  dump("-*- interestsWorker -*- " + msg + '\n')
+}
+
 InterestsWorkerError.prototype = new Error();
 InterestsWorkerError.prototype.constructor = InterestsWorkerError;
 
 let gNamespace = null;
+let gRegionCode = null;
 let gTokenizer = null;
 let gClassifier = null;
 let gInterestsData = null;
-const kSplitter = /[^-\w\xco-\u017f\u0380-\u03ff\u0400-\u04ff]+/;
+
+// XXX The original splitter doesn't apply to chinese:
+//   /[^-\w\xco-\u017f\u0380-\u03ff\u0400-\u04ff]+/;
+const kSplitter = /[\s-]+/;
 
 // bootstrap the worker with data and models
 function bootstrap(aMessageData) {
-  //expects : {interestsData, interestsDataType, interestsClassifierModel, interestsUrlStopwords}
+  // expects : {interestsData, interestsDataType, interestsClassifierModel, interestsUrlStopwords, workerRegionCode}
+  gRegionCode = aMessageData.workerRegionCode;
+
+  gNamespace = aMessageData.workerNamespace;
+  swapRules(aMessageData);
+
   if (aMessageData.interestsUrlStopwords) {
-    gTokenizer = new PlaceTokenizer(aMessageData.interestsUrlStopwords);
+    gTokenizer = tokenizerFactory.getTokenizer({
+      urlStopwordSet: aMessageData.interestsUrlStopwords,
+      model: aMessageData.interestsClassifierModel,
+      regionCode: gRegionCode,
+      rules: gInterestsData
+    });
   }
+
   if (aMessageData.interestsClassifierModel) {
     gClassifier = new NaiveBayesClassifier(aMessageData.interestsClassifierModel);
   }
-
-  gNamespace = aMessageData.workerNamespace;
-
-  swapRules(aMessageData);
 
   self.postMessage({
     message: "bootstrapComplete"
@@ -47,54 +64,51 @@ function swapRules({interestsData, interestsDataType}) {
 
 // classify a page using rules
 function ruleClassify({host, language, tld, metaData, path, title, url}) {
-  if (gInterestsData == null) {
-    return [];
-  }
   let interests = [];
-  let hostKeys = (gInterestsData[host]) ? Object.keys(gInterestsData[host]).length : 0;
-  let tldKeys = (host != tld && gInterestsData[tld]) ? Object.keys(gInterestsData[tld]).length : 0;
 
-  if (hostKeys || tldKeys) {
-    // process __ANY first
-    if (hostKeys && gInterestsData[host]["__ANY"]) {
-      interests = interests.concat(gInterestsData[host]["__ANY"]);
-      hostKeys--;
-    }
-    if (tldKeys && gInterestsData[tld]["__ANY"]) {
-      interests = interests.concat(gInterestsData[tld]["__ANY"]);
-      tldKeys--;
-    }
-
-    // process keywords
-    if (hostKeys || tldKeys) {
-      // Split on non-dash, alphanumeric, latin-small, greek, cyrillic
-      let words = (url + " " + title).toLowerCase().split(kSplitter);
-
-      let matchedAllTokens = function(tokens) {
-        return tokens.every(function(word) {
-          return words.indexOf(word) != -1;
-        });
-      }
-
-      let processDFRKeys = function(hostObject) {
-        Object.keys(hostObject).forEach(function(key) {
-          if (key == "__HOME" && (path == null || path == "" || path == "/" || path.indexOf("/?") == 0)) {
-            interests = interests.concat(hostObject[key]);
-          }
-          else if (key != "__ANY" && matchedAllTokens(key.split(kSplitter))) {
-            interests = interests.concat(hostObject[key]);
-          }
-        });
-      }
-
-      if (hostKeys) {
-        processDFRKeys(gInterestsData[host]);
-      }
-      if (tldKeys) {
-        processDFRKeys(gInterestsData[tld]);
-      }
-    }
+  if (!gInterestsData || !gInterestsData[tld]) {
+    return interests;
   }
+
+  let rule = gInterestsData[tld];
+
+  let keyLength = rule ? Object.keys(rule).length : 0;
+  if (!keyLength)
+    return interests;
+
+  let interests = [];
+  if (rule["__ANY"]) {
+    interests = interests.concat(rule["__ANY"]);
+    keyLength--;
+  }
+
+  if (!keyLength)
+    return interests;
+
+  let words = gTokenizer.tokenize(url, title);
+
+  // subdomain tokens, for example:
+  //   host="foo.bar.rootdomain.com", we got ["foo.", "bar."]
+  words = words.concat(host.substring(0, host.length - tld.length).match(/[^.\/]+\./gi));
+  // path tokens, for example:
+  //   path="/foo/bar/blabla.html", we got ["/foo", "/bar", "/blabla.html"]
+  words = words.concat(path.match(/\/[^\/#?]+/gi));
+
+  let matchedAllTokens = function(tokens) {
+    return tokens.every(function(word) {
+      return words.indexOf(word) != -1;
+    });
+  }
+
+  Object.keys(rule).forEach(function(key) {
+    if (key == "__HOME" && (path == null || path == "" || path == "/" || path.indexOf("/?") == 0)) {
+      interests = interests.concat(rule[key]);
+    }
+    else if (key.indexOf("__") < 0 && matchedAllTokens(key.split(kSplitter))) {
+      interests = interests.concat(rule[key]);
+    }
+  });
+
   return interests;
 }
 
@@ -157,7 +171,7 @@ function getInterestsForDocument(aMessageData) {
     self.postMessage(aMessageData);
   }
   catch (ex) {
-    Components.utils.reportError(ex);
+    log("getInterestsForDocument: " + ex)
   }
 }
 
