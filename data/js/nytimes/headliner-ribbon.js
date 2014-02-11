@@ -315,6 +315,64 @@ define('shared/ribbon/templates-headliner', ['underscore/nyt'], function(_) {
     }
     return __p;
   };
+
+  templates["storyCollection"] = function (obj) {
+    var __t, __p = '',
+        __j = Array.prototype.join,
+        print = function () {
+          __p += __j.call(arguments, '');
+        };
+    with(obj || {}) {
+      __p += '<li class="collection ' + ((__t = (collectionLabel.type)) == null ? '' : __t) + '-collection">\n';
+      if (collectionLabel.title) {
+        __p += '\n<div class="collection-marker">\n<h2 class="label"><a href="' + ((__t = (collectionLabel.url)) == null ? '' : __t) + '">' + ((__t = (collectionLabel.title)) == null ? '' : __t) + '</a></h2>\n</div>\n';
+      }
+      __p += '\n<ol class="collection-menu">\n';
+      _.each(articles, function (article, index, list) {
+        __p += '\n';
+        var a = document.createElement("a");
+        var newLink = article.get('link');
+        a.href = newLink;
+        if (a.hostname.indexOf('www') === 0 && window.location.hostname.indexOf('www') === 0) {
+          newLink = a.pathname.indexOf('/') === 0 ? a.pathname : '/' + a.pathname;
+        }
+        newLink += /\?/.test(newLink) ? '&' : '?';
+        var identifierRE = new RegExp(sectionId);
+        if (!identifierRE.test(newLink)) {
+          newLink += sectionId;
+        }
+        newLink += /\?/.test(newLink) ? '&' : '?';
+        if (adPosition) {
+          newLink += 'ribbon-ad-idx=' + adPosition;
+        }
+        var classString;
+        var classList = [];
+        if (article.get('link') === canonical && firstLoad) {
+          classList.push('active');
+        }
+        if (index === list.length - 1) {
+          classList.push('last-collection-item');
+        }
+        classString = classList.join(' ');
+        __p += '';
+        if (article.get('isAd') !== true) {
+          __p += '' + ((__t = (articleTemplate({
+            article: article,
+            classString: classString,
+            newLink: newLink
+          }))) == null ? '' : __t) + '';
+        } else {
+          __p += '' + ((__t = (adTemplate())) == null ? '' : __t) + '';
+        }
+        __p += '';
+        article.set('processed', true);
+        __p += '\n';
+      });
+      __p += '\n</ol>\n</li>';
+    }
+    return __p;
+  };
+
   return templates;
 });
 /**
@@ -504,7 +562,7 @@ define('shared/ribbon/views/ribbon-headliner',[
     'jquery/nyt',
     'underscore/nyt',
     'shared/ribbon/views/ribbon',
-    'shared/ribbon/templates',
+    'shared/ribbon/templates-headliner',
     'shared/ribbon/views/ribbon-page-navigation-headliner',
     'shared/ribbon/instances/ribbon-data-headliner',
     'shared/ribbon/views/helpers/mixin'
