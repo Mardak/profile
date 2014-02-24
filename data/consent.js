@@ -4,7 +4,8 @@ let consentMenu = angular.module("consentMenu", ["ui.bootstrap", "gettext", "ngS
 
 consentMenu.run(function (gettextCatalog) {
   var locale = navigator.language.replace("-", "_");
-  gettextCatalog.currentLanguage = locale;
+  gettextCatalog.currentLanguage = "zh_CN";
+  gettextCatalog.debug = true;
 });
 
 consentMenu.directive("compile", function($compile) {
