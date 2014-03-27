@@ -142,12 +142,6 @@ NYTD.mostPopWidgetHeadliner = (function() {
     target.insert({ top : errorHTML});
   }
 
-  // Sanitize
-  function sanitize(data) {
-    if(data == null || data == '') return '';
-    return Bleach.clean(data, {strip: true, tags: []});
-  }
-
   // Inject HTML
   function populateMostPop(item, target, tracking, id) {  
     // Build HTML
@@ -165,9 +159,9 @@ NYTD.mostPopWidgetHeadliner = (function() {
         }
       }
       if (NYTD.MostPop.contentType !== "Homepage") {
-        if (item[i].thumbnail != null) { 
-          var img = '<td class="mostPopularImg"><a title="Click to go to this article" href="'+sanitize(item[i].url + tracking) +
-                    '"><img src="'+sanitize(item[i].thumbnail.url)+'"></a></td>';
+        if (item[i].thumbnail != null) {
+          var img = '<td class="mostPopularImg"><a title="Click to go to this article" href="'+Bleach.sanitizeURL(item[i].url + tracking) +
+                    '"><img src="'+Bleach.sanitizeURL(item[i].thumbnail.url)+'"></a></td>';
         } 
         else { 
           var img = "<td></td>"; 
@@ -186,9 +180,9 @@ NYTD.mostPopWidgetHeadliner = (function() {
       }
       mostPopHTML += '<tr>'+ 
         img +'<td class="listNumber">'+ 
-        (i+1) +'.</td><td class="mostPopularTitle"><h6 class="kicker">'+ sanitize(kicker) + '</h6><h4><a title="Click to go to this article" href="'+
-        sanitize(item[i].url + tracking) +'">'+
-        sanitize(title) +'</a></h4></td></tr>\n';
+        (i+1) +'.</td><td class="mostPopularTitle"><h6 class="kicker">'+ Bleach.sanitize(kicker) + '</h6><h4><a title="Click to go to this article" href="'+
+        Bleach.sanitizeURL(item[i].url + tracking, true) +'">'+
+        Bleach.sanitize(title) +'</a></h4></td></tr>\n';
     }
     mostPopHTML += '</tbody></table>';
     //Clean Up existing stuff
