@@ -11,7 +11,7 @@ const {storage} = require("sdk/simple-storage");
 const test = require("sdk/test");
 
 const {Cc, Ci, Cu} = require("chrome");
-const Promise = require("sdk/core/promise");
+//Cu.import("resource://gre/modules/commonjs/sdk/core/promise.js");
 Cu.import("resource://gre/modules/Services.jsm");
 Cu.import("resource://gre/modules/NetUtil.jsm");
 Cu.import("resource://gre/modules/Task.jsm");
@@ -266,6 +266,7 @@ exports["test hostComputedInterests"] = function test_HostComputedInterests(asse
       let testController = new Controller();
       testController.clear();
       yield testController.submitHistory({flush: true});
+
       let results = testController.getHostComputedInterests();
       testUtils.isIdentical(assert, results, {
         "1":{"interests":{"Autos":300},"frecency":300},
@@ -273,6 +274,27 @@ exports["test hostComputedInterests"] = function test_HostComputedInterests(asse
         "3":{"interests":{"Autos":300,"Politics":300,"Programming":300},"frecency":300}
       });
     } catch(ex) {
+      dump( ex + " ERROR\n");
+    }
+  }).then(done);
+}
+
+exports["test get coverage"] = function test_getCoverage(assert, done) {
+  Task.spawn(function() {
+    let microNow = Date.now() * 1000;
+    try {
+      yield testUtils.promiseClearHistory();
+      yield testUtils.promiseAddVisits({uri: NetUtil.newURI("http://www.autoblog.com/"), visitDate: microNow - 2*MICROS_PER_DAY});
+      yield testUtils.promiseAddVisits({uri: NetUtil.newURI("http://www.autoblog.com/"), visitDate: microNow - 2*MICROS_PER_DAY});
+      yield testUtils.promiseAddVisits({uri: NetUtil.newURI("http://www.autoblog.com/"), visitDate: microNow - 2*MICROS_PER_DAY});
+      yield testUtils.promiseAddVisits({uri: NetUtil.newURI("http://www.nosuchhost.com/"), visitDate: microNow - 2*MICROS_PER_DAY});
+
+      let testController = new Controller();
+      testController.clear();
+      yield testController.submitHistory({flush: true});
+      let coverage = testController.getCoverage();
+      testUtils.isIdentical(assert, coverage["edrules"]["rules"], {"totalVisits":4,"totalSites":2,"coveredVisist":75,"coveredSites":50});
+    } catch (ex) {
       dump( ex + " ERROR\n");
     }
   }).then(done);
