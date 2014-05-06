@@ -91,6 +91,20 @@
                 </div>
             </div>
 
+            <div class="coverageSection">
+                <h2>
+                    History Coverage
+                    <div class="btn-group" ng-show="coverageData">
+                        <button class="btn btn-link" ng-show="coverageData" ng-click="selectText('.coverageData pre')">select</button>
+                    </div>
+                </h2>
+                <div class="coverageData">
+                    <pre ng-show="coverageData">{{coverageData}}</pre>
+                    <p ng-hide="coverageData || historyComputeInProgress">Coverage data is not available.</p>
+                    <p ng-show="historyComputeInProgress" ng-hide="coverageData">processing...</p>
+                </div>
+            </div>
+
         </div>
     </body>
 </html>

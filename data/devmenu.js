@@ -41,6 +41,7 @@ studyDbgMenu.controller("studyCtrl", function($scope, dataService) {
     $scope.historyComputeComplete = false;
     $scope.emptyMessage = "Your History was not analysed, please run the Full History Analysis.";
     $scope.rankingData = null;
+    $scope.coverageData = null;
     $scope.hasHistoryData = false;
     $scope.dispatchBatch = null;
     $scope.dispatchBatchNotSendable = true;
@@ -98,6 +99,17 @@ studyDbgMenu.controller("studyCtrl", function($scope, dataService) {
       });
   }
 
+  $scope.convertObjectToText = function(data) {
+    let textdata;
+    if ($scope.prettifiedOutput) {
+      textdata = JSON.stringify(data, null, "  ");
+    }
+    else {
+      textdata = JSON.stringify(data);
+    }
+    return textdata;
+  },
+
   $scope.$on("dispatch_success", function(event, data) {
     $scope.dispatchSuccess = data;
     $scope.dispatchInProgress = false;
@@ -119,20 +131,19 @@ studyDbgMenu.controller("studyCtrl", function($scope, dataService) {
 
   $scope.$on("ranking_data", function(event, data) {
     if (data != null) {
-      let textdata;
-      if ($scope.prettifiedOutput) {
-        textdata = JSON.stringify(data, null, "  ");
-      }
-      else {
-        textdata = JSON.stringify(data);
-      }
-      $scope.rankingData = textdata;
+      $scope.rankingData = $scope.convertObjectToText(data);
     }
     else {
       $scope.emptyMessage = "Unable to detect interests in your history. Please run the History Analysis after few days of browsing.";
     }
     $scope.historyComputeComplete = true;
     $scope.historyComputeInProgress = false;
+  });
+
+  $scope.$on("coverage_data", function(event, data) {
+    if (data != null) {
+      $scope.coverageData = $scope.convertObjectToText(data);
+    }
   });
 
   $scope.$on("dispatch_batch", function(event, data) {
@@ -191,10 +202,12 @@ studyDbgMenu.controller("studyCtrl", function($scope, dataService) {
   $scope.togglePrettify = function() {
     if ($scope.prettifiedOutput) {
       $scope.rankingData = $scope.uglifyText($scope.rankingData);
+      $scope.coverageData = $scope.uglifyText($scope.coverageData);
       $scope.dispatchBatch = $scope.uglifyText($scope.dispatchBatch);
     }
     else {
       $scope.rankingData = $scope.prettifyText($scope.rankingData);
+      $scope.coverageData = $scope.prettifyText($scope.coverageData);
       $scope.dispatchBatch = $scope.prettifyText($scope.dispatchBatch);
     }
     $scope.prettifiedOutput = !$scope.prettifiedOutput;
