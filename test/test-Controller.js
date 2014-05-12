@@ -293,7 +293,7 @@ exports["test get coverage"] = function test_getCoverage(assert, done) {
       testController.clear();
       yield testController.submitHistory({flush: true});
       let coverage = testController.getCoverage();
-      testUtils.isIdentical(assert, coverage["edrules"]["rules"], {"totalVisits":4,"totalSites":2,"coveredVisist":75,"coveredSites":50});
+      testUtils.isIdentical(assert, coverage["edrules"]["rules"], {"totalVisits":4,"totalSites":2,"coveredVisits":75,"coveredSites":50});
     } catch (ex) {
       dump( ex + " ERROR\n");
     }
