@@ -186,7 +186,7 @@ exports["test tldCounter"] = function test_TldCounter(assert, done) {
   }).then(done);
 }
 
-exports["test historyVisistor"] = function test_HistoryVisitor(assert, done) {
+exports["test historyVisitor"] = function test_HistoryVisitor(assert, done) {
   Task.spawn(function() {
     let visits = [];
     yield testUtils.promiseClearHistory();
