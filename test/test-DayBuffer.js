@@ -114,6 +114,7 @@ exports["test add coverage"] = function test_addCoverage(assert, done) {
       yield testUtils.promiseAddVisits({uri: NetUtil.newURI("http://www.autoblog.com/"), visitDate: microNow - 2*MICROS_PER_DAY});
       yield testUtils.promiseAddVisits({uri: NetUtil.newURI("http://www.autoblog.com/"), visitDate: microNow - 2*MICROS_PER_DAY});
       yield testUtils.promiseAddVisits({uri: NetUtil.newURI("http://www.nosuchhost.com/"), visitDate: microNow - 2*MICROS_PER_DAY});
+      yield testUtils.promiseAddVisits({uri: NetUtil.newURI("http://www.lycos.com/"), visitDate: microNow - 2*MICROS_PER_DAY});
 
       dayBuffer.clear();
       let historyReader = new HistoryReader(gWorkerFactory.getCurrentWorkers(), dayBuffer, 0);
@@ -121,6 +122,7 @@ exports["test add coverage"] = function test_addCoverage(assert, done) {
       let coverage = dayBuffer.getCoverage();
       testUtils.isIdentical(assert, coverage["autoblog.com"]["edrules"]["rules"], {"visits":2,"interests":1});
       testUtils.isIdentical(assert, coverage["nosuchhost.com"]["edrules"]["rules"], {"visits":1,"interests":0});
+      testUtils.isIdentical(assert, coverage["lycos.com"]["58-cat"]["rules"], {"visits":1,"interests":0});
     } catch (ex) {
       dump( ex + " ERROR\n");
     }
