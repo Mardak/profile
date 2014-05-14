@@ -2,7 +2,14 @@
 use strict;
 use Data::Dumper;
 use Digest::MD5 qw(md5 md5_hex md5_base64);
-use JSON;
+## make sure that JSON is installed, flag error otherwise
+eval "use JSON;";
+if ($@) {
+  print "***********DEPENDECY MISSING*********\n".
+        "Please install JSON perl module by running:\n".
+        "sudo perl -MCPAN -e 'install JSON'\n";
+  exit 1;
+}
 
 ## The expected format is
 ## uuid interest choice isTop survey_rank
