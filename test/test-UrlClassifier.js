@@ -22,7 +22,7 @@ exports["test url classifier"] = function test_UrlClassifier(assert, done) {
     let workerFactory = new WorkerFactory();
     let urlClassifier = new UrlClassifier(workerFactory.getCurrentWorkers());
     let results = yield urlClassifier.classifyPage("http://www.autoblog.com/","Drive honda");
-    assert.equal(Object.keys(results).length, 4);
+    assert.equal(Object.keys(results).length, 5);
     testUtils.isIdentical(assert, results["58-cat"].results,
           [{"type":"rules","interests":["cars"]},
            {"type":"combined","interests":["cars"]},
